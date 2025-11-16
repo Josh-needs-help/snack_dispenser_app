@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snack_dispenser_app/Components/AutoScaleText.dart';
+import 'package:snack_dispenser_app/Components/StaticContainer.dart';
 import 'package:snack_dispenser_app/Pages/PageTheme.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -11,10 +12,12 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   late int dispenserUses = 0; //placeholder
+  late int dispenserUsesToday = 0;//placeholder
   @override
   void initState() {
     super.initState();
-    dispenserUses = 0; 
+    dispenserUses = 0;
+    dispenserUsesToday = 0;
   }
 
   @override
@@ -25,21 +28,55 @@ class _HistoryPageState extends State<HistoryPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.all(padding),
-            width: MediaQuery.of(context).size.width * 1,
-            height: MediaQuery.of(context).size.height * 0.2,
-            color: Color(0xFF1F2937),
-            child: Center(
-              child: AutoScaleText(
-                text: "Dispenser has been used $dispenserUses times today",
-                align: TextAlign.center,
-                bold:true,
-                maxLines: 1,
-                maxSize: 600,
+          Center(
+            child: StaticContainer(
+              padding: padding,
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.18,
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoScaleText(
+                    text: "Dispenser Used",
+                    align: TextAlign.center,
+                    bold: false,
+                    maxLines: 1,
+                    maxSize: 14,
+                  ),
+                  AutoScaleText(
+                    text: "$dispenserUses times",
+                    align: TextAlign.center,
+                    bold: true,
+                    maxLines: 1,
+                    maxSize: 50,
+                  ),
+                ],
               ),
             ),
           ),
+          SizedBox(height:MediaQuery.of(context).size.height * 0.05,),
+          Center(
+            child: StaticContainer(
+              padding: padding,
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.10,
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoScaleText(
+                    text: "Today's Usage: $dispenserUsesToday",
+                    align: TextAlign.center,
+                    bold: false,
+                    maxLines: 1,
+                    maxSize: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          //next thing to work on. Listview.
         ],
       ),
     );
