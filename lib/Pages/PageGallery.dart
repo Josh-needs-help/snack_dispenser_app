@@ -24,6 +24,7 @@ class _PageGalleryState extends State<PageGallery> {
           child: AutoScaleText(
             text: _currentIndex == 0 ? "History" : "Analytics",
             align: TextAlign.center,
+            weight: FontWeight.w500,
             maxSize: 20,
           ),
         ),
@@ -57,6 +58,11 @@ class _PageGalleryState extends State<PageGallery> {
         controller: controller,
         scrollDirection: Axis.horizontal,
         children: pages,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index; 
+          });
+        },
       ),
     );
   }

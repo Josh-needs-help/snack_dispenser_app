@@ -12,6 +12,13 @@ class HistoryEntry {
     required this.day,
     required this.hour,
     required this.minute,
-    required this.name
+    required this.name,
   });
+  @override
+  String toString() {
+    int actualHour = hour % 12;
+    if (actualHour == 0) actualHour = 12;
+    String amPm = hour >= 12 ? "PM" : "AM";
+    return "$year-$month-$day $actualHour:$minute $amPm";
+  }
 }

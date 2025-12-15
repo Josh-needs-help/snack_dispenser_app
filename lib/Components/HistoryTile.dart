@@ -15,7 +15,6 @@ class HistoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${entry.year}");
     return Container(
       width: width,
       padding: const EdgeInsets.all(12),
@@ -49,15 +48,16 @@ class HistoryTile extends StatelessWidget {
                   text: entry.name,
                   align: TextAlign.start,
                   maxLines: 1,
-                  bold: true,
-                  maxSize: 30,
+                  weight: FontWeight.bold,
+                  maxSize: 20,
                 ),
                 AutoScaleText(
                   align: TextAlign.start,
+                  weight: FontWeight.w300,
                   text:
-                      "${entry.year}-${entry.month}-${entry.day} ${entry.hour}:${entry.minute}",
+                      entry.toString(),
                   maxLines: 1,
-                  maxSize: 20,
+                  maxSize: 15,
                 ),
               ],
             ),

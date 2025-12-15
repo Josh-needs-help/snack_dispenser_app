@@ -7,8 +7,8 @@ class AutoScaleText extends StatelessWidget {
   final double? maxSize;
   final double? minSize;
   final TextAlign align;
-  final bool? bold;
   final Color? color;
+  final FontWeight weight;
   const AutoScaleText({
     super.key,
     required this.text,
@@ -16,7 +16,7 @@ class AutoScaleText extends StatelessWidget {
     this.maxSize,
     this.minSize,
     required this.align,
-    this.color, this.bold,
+    this.color, required this.weight,
   });
 
   @override
@@ -25,7 +25,7 @@ class AutoScaleText extends StatelessWidget {
       text,
       style: TextStyle(
         color: color??const Color.fromARGB(255, 223, 223, 223),
-        fontWeight: bold!=null&&bold==true?FontWeight.bold:FontWeight.w500,
+        fontWeight: weight,
         fontSize: maxSize??300
       ),
       maxLines: maxLines ?? 3,

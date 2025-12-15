@@ -17,6 +17,9 @@ class _HistoryPageState extends State<HistoryPage> {
   late int dispenserUsesToday = 0; //placeholder
   List<HistoryEntry> historyList = [
     HistoryEntry(year: 2025, month: 12, day: 15, hour: 2, minute: 55, name: "buh"),
+    HistoryEntry(year: 2025, month: 12, day: 15, hour: 12, minute: 55, name: "cookies"),
+    HistoryEntry(year: 2025, month: 12, day: 15, hour: 15, minute: 55, name: "chips"),
+    HistoryEntry(year: 2025, month: 12, day: 15, hour: 18, minute: 55, name: "ur mom"),
   ];
   @override
   void initState() {
@@ -45,14 +48,14 @@ class _HistoryPageState extends State<HistoryPage> {
                   AutoScaleText(
                     text: "Dispenser Used",
                     align: TextAlign.center,
-                    bold: false,
+                    weight: FontWeight.w300,
                     maxLines: 1,
                     maxSize: 14,
                   ),
                   AutoScaleText(
                     text: "$dispenserUses times",
                     align: TextAlign.center,
-                    bold: true,
+                    weight: FontWeight.bold,
                     maxLines: 1,
                     maxSize: 50,
                   ),
@@ -73,7 +76,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   AutoScaleText(
                     text: "Today's Usage: $dispenserUsesToday",
                     align: TextAlign.center,
-                    bold: false,
+                    weight: FontWeight.bold,
                     maxLines: 1,
                     maxSize: 20,
                   ),
@@ -81,13 +84,20 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AutoScaleText(
-              text: "Recent History",
-              maxSize: 20,
-              align: TextAlign.start,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: MediaQuery.of(context).size.width * 0.025,),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: AutoScaleText(
+                  text: "Recent History",
+                  weight: FontWeight.bold,
+                  maxSize: 20,
+                  align: TextAlign.start,
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: ListView.builder(
