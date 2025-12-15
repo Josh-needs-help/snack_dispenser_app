@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snack_dispenser_app/Components/AutoScaleText.dart';
+import 'package:snack_dispenser_app/Components/HistoryTile.dart';
 import 'package:snack_dispenser_app/Components/StaticContainer.dart';
+import 'package:snack_dispenser_app/Models/HistoryEntry.dart';
 import 'package:snack_dispenser_app/Pages/PageTheme.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -12,7 +14,10 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   late int dispenserUses = 0; //placeholder
-  late int dispenserUsesToday = 0;//placeholder
+  late int dispenserUsesToday = 0; //placeholder
+  List<HistoryEntry> historyList = [
+    HistoryEntry(year: 2025, month: 12, day: 15, hour: 2, minute: 55, name: "buh"),
+  ];
   @override
   void initState() {
     super.initState();
@@ -55,7 +60,7 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
           ),
-          SizedBox(height:MediaQuery.of(context).size.height * 0.05,),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           Center(
             child: StaticContainer(
               padding: padding,
@@ -76,7 +81,32 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ),
           ),
-          //next thing to work on. Listview.
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AutoScaleText(
+              text: "Recent History",
+              maxSize: 20,
+              align: TextAlign.start,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: historyList.length,
+              itemBuilder: (context, index) {
+                final entry = historyList[index];
+                return Column(
+                  children: [
+                    SizedBox(height: 10),
+                    HistoryTile(
+                      entry: entry,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
