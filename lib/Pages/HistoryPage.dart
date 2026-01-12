@@ -1,7 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:snack_dispenser_app/Components/AutoScaleText.dart';
 import 'package:snack_dispenser_app/Components/HistoryTile.dart';
 import 'package:snack_dispenser_app/Components/StaticContainer.dart';
+import 'package:snack_dispenser_app/Models/History.dart';
 import 'package:snack_dispenser_app/Models/HistoryEntry.dart';
 import 'package:snack_dispenser_app/Pages/PageTheme.dart';
 
@@ -11,23 +13,20 @@ class HistoryPage extends StatefulWidget {
   @override
   State<HistoryPage> createState() => _HistoryPageState();
 }
-
 class _HistoryPageState extends State<HistoryPage> {
   late int dispenserUses = 0; //placeholder
   late int dispenserUsesToday = 0; //placeholder
-  List<HistoryEntry> historyList = [
-    HistoryEntry(year: 2025, month: 12, day: 15, hour: 2, minute: 55, name: "buh"),
-    HistoryEntry(year: 2025, month: 12, day: 15, hour: 12, minute: 55, name: "cookies"),
-    HistoryEntry(year: 2025, month: 12, day: 15, hour: 15, minute: 55, name: "chips"),
-    HistoryEntry(year: 2025, month: 12, day: 15, hour: 18, minute: 55, name: "ur mom"),
-  ];
+  List<HistoryEntry> historyList = History.instance.data;
   @override
   void initState() {
     super.initState();
     dispenserUses = 0;
     dispenserUsesToday = 0;
+    History.instance.addListener(_onHistoryChanged);
   }
-
+   void _onHistoryChanged() {
+    setState(() {}); 
+  }
   @override
   Widget build(BuildContext context) {
     double padding = MediaQuery.of(context).size.width * 0.02;
@@ -99,6 +98,19 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
             ],
           ),
+          // for testing purposes
+          /*IconButton(
+            onPressed: (){
+              final _ref = FirebaseDatabase.instance.ref('history');
+              int time = DateTime.now().millisecondsSinceEpoch;
+              _ref.push().set({
+                'name': "Big snack",
+                'date': "2005,10,3,10,12,45",
+                'timestamp': time,
+              });
+            }
+          , icon: Icon(Icons.plus_one)
+          ),*/
           Expanded(
             child: ListView.builder(
               itemCount: historyList.length,

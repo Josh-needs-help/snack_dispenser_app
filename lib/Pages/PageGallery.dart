@@ -19,16 +19,24 @@ class _PageGalleryState extends State<PageGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF101F22),
-        title: Center(
-          child: AutoScaleText(
-            text: _currentIndex == 0 ? "History" : "Analytics",
-            align: TextAlign.center,
-            weight: FontWeight.w500,
-            maxSize: 20,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Image.asset(
+            'assets/logo/S-removebg-preview.png',
+            width: 40,
+            height: 40,
           ),
         ),
+        backgroundColor: Color(0xFF101F22),
+        centerTitle: true, 
+        title: AutoScaleText(
+          text: _currentIndex == 0 ? "Your Activity" : "Analytics",
+          align: TextAlign.center,
+          weight: FontWeight.bold,
+          maxSize: 25,
+        ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xFF171F30),
         selectedItemColor: Colors.lightBlueAccent,
@@ -60,7 +68,7 @@ class _PageGalleryState extends State<PageGallery> {
         children: pages,
         onPageChanged: (index) {
           setState(() {
-            _currentIndex = index; 
+            _currentIndex = index;
           });
         },
       ),
