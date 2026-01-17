@@ -7,8 +7,14 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
+  auto_size_text: ^3.0.0
+  google_fonts: ^6.3.3
   flutter:
     sdk: flutter
+  firebase_core: ^4.3.0
+  firebase_database: ^12.1.1
+  shared_preferences: ^2.5.4
+  fl_chart: ^0.66.0
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +23,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/logo/S-removebg-preview.png
