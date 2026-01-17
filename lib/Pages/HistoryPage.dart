@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import 'package:snack_dispenser_app/Components/AutoScaleText.dart';
 import 'package:snack_dispenser_app/Components/HistoryTile.dart';
@@ -13,10 +13,11 @@ class HistoryPage extends StatefulWidget {
   @override
   State<HistoryPage> createState() => _HistoryPageState();
 }
-class _HistoryPageState extends State<HistoryPage> {
+
+class _HistoryPageState extends State<HistoryPage> with AutomaticKeepAliveClientMixin {
   late int dispenserUses = 0; //placeholder
   late int dispenserUsesToday = 0; //placeholder
-  List<HistoryEntry> historyList = History.instance.data;
+  List<HistoryEntry> historyList = History.instance.getLastEntries();
   @override
   void initState() {
     super.initState();
@@ -24,11 +25,15 @@ class _HistoryPageState extends State<HistoryPage> {
     dispenserUsesToday = 0;
     History.instance.addListener(_onHistoryChanged);
   }
-   void _onHistoryChanged() {
-    setState(() {}); 
+
+  void _onHistoryChanged() {
+    historyList = History.instance.getLastEntries();
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     double padding = MediaQuery.of(context).size.width * 0.02;
     return PageTheme(
       content: Column(
@@ -86,7 +91,7 @@ class _HistoryPageState extends State<HistoryPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: MediaQuery.of(context).size.width * 0.025,),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.025),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: AutoScaleText(
@@ -100,16 +105,28 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           // for testing purposes
           /*IconButton(
-            onPressed: (){
+            onPressed: () async {
               final _ref = FirebaseDatabase.instance.ref('history');
-              int time = DateTime.now().millisecondsSinceEpoch;
-              _ref.push().set({
-                'name': "Big snack",
-                'date': "2005,10,3,10,12,45",
-                'timestamp': time,
-              });
-            }
-          , icon: Icon(Icons.plus_one)
+
+              int year = 2026;
+              int month = 1; // January
+
+              for (int i = 0; i < 20; i++) {
+                int day = (i % 31) + 1; // day 1–31
+                int hour = (i * 3) % 24;
+                int minute = (i * 7) % 60;
+                int second = (i * 11) % 60;
+
+                int timestamp = DateTime.now().millisecondsSinceEpoch;
+
+                await _ref.push().set({
+                  'name': "Test Snack #$i",
+                  'date': "$year,$month,$day,$hour,$minute,$second",
+                  'timestamp': timestamp,
+                });
+              }
+            },
+            icon: Icon(Icons.plus_one),
           ),*/
           Expanded(
             child: ListView.builder(
@@ -133,4 +150,7 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
