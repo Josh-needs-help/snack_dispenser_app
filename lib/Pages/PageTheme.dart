@@ -12,7 +12,7 @@ class _PageThemeState extends State<PageTheme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF101F22),
+      backgroundColor: Color.fromARGB(255, 15, 28, 31),
       body: widget.content
     );
   }

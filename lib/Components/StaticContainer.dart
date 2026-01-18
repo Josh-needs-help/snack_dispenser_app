@@ -18,7 +18,7 @@ class StaticContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Color.fromARGB(128, 32, 54, 58),
+        color: Color.fromARGB(255, 25, 34, 49),
       ),
       padding: EdgeInsets.fromLTRB(2 * padding, padding, 2 * padding, padding),
       width: width,

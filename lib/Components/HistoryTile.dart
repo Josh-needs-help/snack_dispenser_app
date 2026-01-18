@@ -19,7 +19,7 @@ class HistoryTile extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A2C2F),
+        color: Color.fromARGB(255, 25, 34, 49),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

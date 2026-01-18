@@ -1,4 +1,4 @@
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:snack_dispenser_app/Components/AutoScaleText.dart';
 import 'package:snack_dispenser_app/Components/HistoryTile.dart';
@@ -14,19 +14,21 @@ class HistoryPage extends StatefulWidget {
   State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> with AutomaticKeepAliveClientMixin {
-  late int dispenserUses = 0; //placeholder
-  late int dispenserUsesToday = 0; //placeholder
+class _HistoryPageState extends State<HistoryPage>
+    with AutomaticKeepAliveClientMixin {
+  late int dispenserUses;
+  late int dispenserUsesToday;
   List<HistoryEntry> historyList = History.instance.getLastEntries();
   @override
   void initState() {
     super.initState();
-    dispenserUses = 0;
-    dispenserUsesToday = 0;
+    dispenserUses = History.instance.data.length;
+    dispenserUsesToday = History.instance.calculateTodayUsage();
     History.instance.addListener(_onHistoryChanged);
   }
 
   void _onHistoryChanged() {
+    dispenserUses = History.instance.data.length;
     historyList = History.instance.getLastEntries();
     setState(() {});
   }
@@ -104,29 +106,20 @@ class _HistoryPageState extends State<HistoryPage> with AutomaticKeepAliveClient
             ],
           ),
           // for testing purposes
-          /*IconButton(
+         /* IconButton(
             onPressed: () async {
-              final _ref = FirebaseDatabase.instance.ref('history');
+              final ref = FirebaseDatabase.instance.ref('history');
 
-              int year = 2026;
-              int month = 1; // January
+                final now = DateTime.now();
 
-              for (int i = 0; i < 20; i++) {
-                int day = (i % 31) + 1; // day 1–31
-                int hour = (i * 3) % 24;
-                int minute = (i * 7) % 60;
-                int second = (i * 11) % 60;
-
-                int timestamp = DateTime.now().millisecondsSinceEpoch;
-
-                await _ref.push().set({
-                  'name': "Test Snack #$i",
-                  'date': "$year,$month,$day,$hour,$minute,$second",
-                  'timestamp': timestamp,
+                await ref.push().set({
+                  'name': 'Test Snack',
+                  'date':
+                      '${now.year},${now.month},${now.day},${now.hour},${now.minute},${now.second}',
+                  'timestamp': now.millisecondsSinceEpoch,
                 });
-              }
             },
-            icon: Icon(Icons.plus_one),
+            icon: const Icon(Icons.plus_one),
           ),*/
           Expanded(
             child: ListView.builder(
@@ -150,7 +143,7 @@ class _HistoryPageState extends State<HistoryPage> with AutomaticKeepAliveClient
       ),
     );
   }
-  
+
   @override
   bool get wantKeepAlive => true;
 }

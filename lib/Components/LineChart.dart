@@ -22,6 +22,7 @@ class HistoryLineChart extends StatelessWidget {
       'Nov',
       'Dec',
     ];
+    List<int> days = [1,5,10,15,20,25,30];
     final maxY = data.isEmpty
         ? 0.0
         : data.reduce((a, b) => a > b ? a : b).toDouble();
@@ -51,18 +52,61 @@ class HistoryLineChart extends StatelessWidget {
               showTitles: true,
               reservedSize: 30,
               getTitlesWidget: (value, meta) {
-                int index = value.toInt();
-                List<String> titles = mode == "weekly" ? weekDays : months;
-                if (index < 0 || index >= titles.length) return Container();
-                return Text(
-                  titles[index],
-                  style: TextStyle(
-                    color: const Color.fromARGB(255, 167, 167, 167),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                );
+                final x = value.toInt();
+
+                if (mode == "weekly") {
+                  if (x < 0 || x >= weekDays.length)
+                  {
+                     return const SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      weekDays[x],
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 167, 167, 167),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  );
+                }
+
+                if (mode == "yearly") {
+                  if (x < 0 || x >= months.length)
+                  {
+                     return const SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      months[x],
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 167, 167, 167),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  );
+                }
+
+                if (days.contains(x)) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      x.toString(),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 167, 167, 167),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                  );
+                }
+
+                return const SizedBox.shrink();
               },
+
               interval: 1,
             ),
           ),
@@ -78,7 +122,7 @@ class HistoryLineChart extends StatelessWidget {
                     style: const TextStyle(
                       color: const Color.fromARGB(255, 167, 167, 167),
                       fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                      fontSize: 10,
                     ),
                   );
                 }
