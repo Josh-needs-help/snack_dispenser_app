@@ -22,7 +22,7 @@ class HistoryLineChart extends StatelessWidget {
       'Nov',
       'Dec',
     ];
-    List<int> days = [1,5,10,15,20,25,30];
+    List<int> days = [1, 5, 10, 15, 20, 25, 30];
     final maxY = data.isEmpty
         ? 0.0
         : data.reduce((a, b) => a > b ? a : b).toDouble();
@@ -32,8 +32,8 @@ class HistoryLineChart extends StatelessWidget {
         maxY: maxY,
         lineBarsData: [
           LineChartBarData(
+            isCurved: false,
             spots: intToSpots(),
-            isCurved: true,
             barWidth: 2,
             color: Colors.blue,
             belowBarData: BarAreaData(
@@ -55,9 +55,8 @@ class HistoryLineChart extends StatelessWidget {
                 final x = value.toInt();
 
                 if (mode == "weekly") {
-                  if (x < 0 || x >= weekDays.length)
-                  {
-                     return const SizedBox.shrink();
+                  if (x < 0 || x >= weekDays.length) {
+                    return const SizedBox.shrink();
                   }
                   return Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -73,9 +72,8 @@ class HistoryLineChart extends StatelessWidget {
                 }
 
                 if (mode == "yearly") {
-                  if (x < 0 || x >= months.length)
-                  {
-                     return const SizedBox.shrink();
+                  if (x < 0 || x >= months.length) {
+                    return const SizedBox.shrink();
                   }
                   return Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -138,7 +136,10 @@ class HistoryLineChart extends StatelessWidget {
   List<FlSpot> intToSpots() {
     return List.generate(
       data.length,
-      (i) => FlSpot(i.toDouble(), data[i].toDouble()),
+      (i) => FlSpot(
+        i.toDouble(),
+        data[i].toDouble().clamp(0.0, double.infinity), 
+      ),
     );
   }
 }

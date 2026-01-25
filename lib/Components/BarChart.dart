@@ -19,6 +19,9 @@ class HistoryBarChart extends StatelessWidget {
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: true,
+            leftTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(

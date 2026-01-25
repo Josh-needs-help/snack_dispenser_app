@@ -99,16 +99,17 @@ class _AnalyticsPageState extends State<AnalyticsPage>
                 width: MediaQuery.of(context).size.width * 0.90,
                 height: MediaQuery.of(context).size.height * 0.4,
                 content: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoScaleText(
                       text: "Peak Hours This ${tabIndex==0?"Week":(tabIndex==1?"Month":"Year")}",
                       align: TextAlign.start,
-                      weight: FontWeight.w400,
+                      weight: FontWeight.w500,
                       maxLines: 1,
                       maxSize: 16,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 32),
                     SizedBox(
                       height: 200,
                       width: double.infinity,
